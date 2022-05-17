@@ -16,7 +16,6 @@ function App() {
       <ul>
         {data.map((user) => (
           <li key={user.id}>{user.login}</li>
-          <p>{user.id}</p>
         ))}
       </ul>
     );
