@@ -6,8 +6,32 @@ const createArray = (length) => [
   ...Array(length)
 ];
 
-function Star() {
-  return <FaStar />;
+function Star({ selected = false, onSelected }) {
+  return (
+    <FaStar 
+      color={selected ? "red" : "gray"}
+      onClick={onSelected}
+    />
+  );
+}
+
+function StarRating({ totalStars=5 }){
+  const [
+    selectedStars, 
+    setSelectedStars
+  ] = useState(0);
+  return (
+  <>
+    {createArray(totalStars).map((n, i) => (
+      <Star 
+        key={i} 
+        selected={selectedStars > i}
+        onSelected={() => setSelectedStars(i + 1)}
+      />
+    ))}
+    <p>{selectedStars} of {totalStars}</p>
+  </>
+  );
 }
 
 function App() {
