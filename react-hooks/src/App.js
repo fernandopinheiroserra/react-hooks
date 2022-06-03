@@ -2,23 +2,25 @@ import { useReducer } from 'react';
 import { ReactDOM } from 'react';
 import './App.css';
 
-function App() {
-  const [number, setNumber] = useReducer((
-  number, newNumber) => number + newNumber , 0)
 
-  const [checked, toogle] = useReducer(
-     (checked) => !checked,
-     false
+const initialState = {
+  message: "hi"
+}
+
+
+
+function App() {
+//  const [number, setNumber] = useReducer((
+//  number, newNumber) => number + newNumber , 0)
+
+  const [state, dispatch] = useReducer(
+     reducer,
+     initialState
   );
 
   return (
     <>
-      <input
-        type="checkbox"
-        value={checked}
-        onChange={toogle}
-      />  
-      <h1 onClick={() => setNumber(1)}>{number}</h1>;
+      <p>Message: {StaticRange.message}</p>
     </>
   )
 }
