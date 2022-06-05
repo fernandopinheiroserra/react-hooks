@@ -1,45 +1,27 @@
-import { useReducer } from 'react';
-import { ReactDOM } from 'react';
 import './App.css';
+import { useFetch } from './useFetch';
 
-
-const initialState = {
-  message: "hi"
-}
-
-
-
-function App() {
-//  const [number, setNumber] = useReducer((
-//  number, newNumber) => number + newNumber , 0)
-
-  const [state, dispatch] = useReducer(
-     reducer,
-     initialState
-  );
-
+function App({login}) {
+  const {loading, data, error} = useFetch(`https://api.github.com/users/${login}`);
+  if(loading) return <h1>LOADING....</h1>
+  if (error)
   return (
-    <>
-      <p>Message: {StaticRange.message}</p>
-    </>
+    <pre>{JSON.stringify(error, null, 2)}</pre>
+  );
+  return (
+    <div>
+      <img 
+        src={data.avatar_url}
+        alt={data.login}
+      />
+      <div>
+        <h1>{data.login}</h1>
+        {data.name && <p>{data.name}</p>}
+        {data.location && <p>{data.location}</p>}
+      </div>  
+    </div>
   )
 }
-
-// UseReducer 101
-//  const [number, setNumber] = useReducer((
-//    number, newNumber) => number + newNumber , 0)
-//   return <h1 onClick={() => setNumber(1)}>{number}</h1>;
-//}
-  
-  //Check!
-  //const [checked, setChecked] = useState(false);
-
-  //return (
-  //  <div className="App">
-  //    <input type="checkbox" value={checked} onChange={() => setChecked((checked) => !checked)}/>
-  //    <p>{checked ? "yep" : "nope"}</p>
-  //  </div>
-  //);
 
 
 export default App;
